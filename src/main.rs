@@ -20,7 +20,23 @@ fn main() {
         };
         entryz_list.push(entry);
     }
+
+
     for entry in entryz_list {
-        println!("{:#?}", entry.imghash);
+        let mut scan_list = Vec::new();
+        let mut stmt2 = conn.prepare("SELECT * FROM jpgs WHERE imghash = ?").unwrap();
+        let mut rows2 = stmt2.query([entry.imghash]).unwrap();
+        while let Some(row) = rows2.next().unwrap() {
+            let entry = types::Meta {
+                imgid: row.get(1).unwrap(),
+                imghash: row.get(2).unwrap(),
+                imgpath: row.get(3).unwrap(),
+            };
+            scan_list.push(entry);
+        };
+
+        if scan_list.len() > 1 {
+            println!("Duplicate found: {:#?}", scan_list);
+        }
     }
 }
