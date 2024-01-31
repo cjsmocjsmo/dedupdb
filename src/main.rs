@@ -14,9 +14,9 @@ fn main() {
     let mut rows = stmt.query([]).unwrap();
     while let Some(row) = rows.next().unwrap() {
         let entry = types::Meta {
-            imgid: row.get(0).unwrap(),
-            imghash: row.get(1).unwrap(),
-            imgpath: row.get(2).unwrap(),
+            imgid: row.get(1).unwrap(),
+            imghash: row.get(2).unwrap(),
+            imgpath: row.get(3).unwrap(),
         };
         entryz_list.push(entry);
     }
