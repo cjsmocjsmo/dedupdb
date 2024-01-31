@@ -10,7 +10,7 @@ fn main() {
     let db_path = env::var("DUPS_DB");
     let conn = rusqlite::Connection::open(db_path.unwrap()).unwrap();
     let mut entryz_list = Vec::new();
-    let mut stmt = conn.prepare("SELECT * FROM dups").unwrap();
+    let mut stmt = conn.prepare("SELECT * FROM jpgs").unwrap();
     let entryz = stmt.query_map([], |row| {
         Ok(types::Meta {
             imgid: row.get(0)?,
