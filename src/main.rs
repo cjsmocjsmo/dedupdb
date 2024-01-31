@@ -21,6 +21,7 @@ fn main() {
         entryz_list.push(entry);
     }
 
+    // let master_list = Vec::new();
 
     for entry in entryz_list {
         let mut scan_list = Vec::new();
@@ -36,7 +37,7 @@ fn main() {
         };
 
         if scan_list.len() > 1 {
-            println!("Duplicate found: {:#?}", scan_list);
+            println!("Duplicate found: {:#?}", scan_list[0]);
         }
     }
 }
