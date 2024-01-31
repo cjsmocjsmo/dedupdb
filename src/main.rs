@@ -21,6 +21,6 @@ fn main() {
         entryz_list.push(entry);
     }
     for entry in entryz_list {
-        println!("{:#?}", entry);
+        println!("{:#?}", entry.imghash);
     }
 }
