@@ -1,14 +1,17 @@
 use std::env;
+use std::process;
 
-
-pub mod envvars;
 pub mod types;
 
-
 fn main() {
-    envvars::set_env_vars();
-    let db_path = env::var("DUPS_DB");
-    let conn = rusqlite::Connection::open(db_path.unwrap()).unwrap();
+    let args: Vec<String> = env::args().collect();
+    if args.len() < 2 {
+        println!("Please provide a database path as an argument");
+        process::exit(1);
+    }
+    let db_path = &args[1];
+    
+    let conn = rusqlite::Connection::open(db_path).unwrap();
     let mut entryz_list = Vec::new();
     let mut stmt = conn.prepare("SELECT * FROM jpgs").unwrap();
     let mut rows = stmt.query([]).unwrap();
@@ -20,8 +23,6 @@ fn main() {
         };
         entryz_list.push(entry);
     }
-
-    // let master_list = Vec::new();
 
     for entry in entryz_list {
         let mut scan_list = Vec::new();
